@@ -15,7 +15,7 @@ EXE_test_DEFINES := -DUSE_NORMAL_NAV -DUSE_BINARY_NAV
 
 all: $(addprefix $(BIN_DIR)/, $(EXES))
 
-$(addprefix $(BIN_DIR)/, $(EXES)): $(DEP_DIR) $(BIN_DIR) $(SRC_DIR)/main.cpp
+$(addprefix $(BIN_DIR)/, $(EXES)): $(SRC_DIR)/main.cpp | $(DEP_DIR) $(BIN_DIR)
 	$(CXX) $(CXX_FLAGS) -I$(INC_DIR) \
 		-MMD -MP -MF $(DEP_DIR)/$(@:$(BIN_DIR)/%=%).d -o $@ \
 		$(EXE_$(@:$(BIN_DIR)/%=%)_DEFINES) $(SRC_DIR)/main.cpp
