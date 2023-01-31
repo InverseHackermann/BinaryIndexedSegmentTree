@@ -3,7 +3,7 @@ BIN_DIR := bin
 INC_DIR := inc
 DEP_DIR := dep
 
-CXX_FLAGS := -MMD -MP
+CXX_FLAGS := -std=c++17
 
 EXES := test time_normal time_binary
 
@@ -16,7 +16,8 @@ EXE_test_DEFINES := -DUSE_NORMAL_NAV -DUSE_BINARY_NAV
 all: $(addprefix $(BIN_DIR)/, $(EXES))
 
 $(addprefix $(BIN_DIR)/, $(EXES)): $(DEP_DIR) $(BIN_DIR) $(SRC_DIR)/main.cpp
-	$(CXX) $(CXX_FLAGS) -I$(INC_DIR) -MF $(DEP_DIR)/$(@:$(BIN_DIR)/%=%).d -o $@ \
+	$(CXX) $(CXX_FLAGS) -I$(INC_DIR) \
+		-MMD -MP -MF $(DEP_DIR)/$(@:$(BIN_DIR)/%=%).d -o $@ \
 		$(EXE_$(@:$(BIN_DIR)/%=%)_DEFINES) $(SRC_DIR)/main.cpp
 
 $(DEP_DIR):
